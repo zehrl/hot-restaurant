@@ -1,5 +1,6 @@
 const express = require("express");
 const nodemon = require("nodemon");
+var path = require("path");
 
 var app = express();
 var PORT = 3000;
@@ -9,19 +10,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-var reservations = [{}];
+var reservations = [];
 
 // Routes
 app.get("/", function(req, res) {
-    res.send("Welcome to the Star Wars Page!");
+  res.sendFile(path.join(__dirname, "pages/homepage.html"));
   });
 
   app.get("/reserve", function(req, res) {
-    res.sendFile(path.join(__dirname, "reserve.html"));
+    res.sendFile(path.join(__dirname, "pages/reserve.html"));
   });
 
   app.get("/tables", function(req, res) {
-    res.sendFile(path.join(__dirname, "tables.html"));
+    res.sendFile(path.join(__dirname, "pages/tables.html"));
+  });
+
+  app.get("/api/tables", function(req, res) {
+    res.json(reservations);
   });
 
   
